@@ -28,7 +28,7 @@ class Ball :
         '''Update postion of the ball'''
         self.x += self.dx
         self.y += self.dy
-        if self.x >= 1000-50 or self.x <= 0 :
+        if self.x >= 600-50 or self.x <= 0 :
             self.dx *= -1
         elif self.y >= 720-50 or self.y <= 0 :
             self.dy *= -1
@@ -51,11 +51,30 @@ class Level :
         self.main_bg = pygame.image.load(fr'C:\Users\ponsg\MiniGolf-Game\Assets\main_bg.png')
         self.main_bg = pygame.transform.scale(self.main_bg,(1000,1000))
         self.hole = pygame.image.load(fr'C:\Users\ponsg\MiniGolf-Game\Assets\golf_hole.png')
+        self.barrier = pygame.image.load(fr'C:\Users\ponsg\MiniGolf-Game\Assets\barrière.png')
+        self.barrier = pygame.transform.scale(self.barrier,(100,100))
         self.hole_pos = (1000/2-50,100)
+        self.barrier_pos = []
+    def level_update(self):
+        pass
     def draw(self,surface):
         surface.blit(self.main_bg,(0,0))
         surface.blit(self.hole,self.hole_pos)
+        for pos in self.barrier_pos :
+            surface.blit(self.barrier,pos)
 
-class Level1(Level):
-    def __init__(self) :
-        super().__init__(self)
+class Info :
+    def __init__(self):
+        self.info_side = pygame.image.load(fr'C:\Users\ponsg\MiniGolf-Game\Assets\info_side.png')
+        self.info_side = pygame.transform.scale(self.info_side,(400,800))
+        self.level_label = []
+        self.level_number = 0
+        self.right_arrow = pygame.image.load(fr'C:\Users\ponsg\MiniGolf-Game\Assets\right_arrow.png')
+        self.left_arrow = pygame.transform.rotate(self.right_arrow,180)
+        for i in range(1,2):
+            label = pygame.image.load(fr'C:\Users\ponsg\MiniGolf-Game\Assets\level{i}_label.png')
+            self.level_label.append(pygame.transform.scale(label,(150,75)))
+    def draw(self, surface):
+        surface.blit(self.info_side,(600,0))
+        surface.blit(self.level_label[self.level_number],(725,50))
+        surface.blit(self.right_arrow,(900,75))

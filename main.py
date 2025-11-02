@@ -1,5 +1,6 @@
 import pygame 
 import libs
+import levels
 
 HEIGHT = 720
 WIDTH = 1000
@@ -11,19 +12,21 @@ if __name__ == "__main__" :
     clock = pygame.time.Clock() 
     running = True 
     cursor_pos = 0
-    ball = libs.Ball(WIDTH//2,HEIGHT-70)
-    level = libs.Level()
+    ball = libs.Ball(300,HEIGHT-70)
+    level = levels.Level1()
+    info_bar = libs.Info()
     '''Mainloop'''
     while running :
         level.draw(screen)
         ball.draw(screen)
+        info_bar.draw(screen)
         for event in pygame.event.get():
             '''Stop condition'''
             if event.type == pygame.QUIT :
                 running = False
             if event.type == pygame.MOUSEBUTTONUP :
                 if event.button == 1 :
-                    ball.tension(cursor_pos)
+                    ball.tension()
             elif event.type == pygame.MOUSEBUTTONDOWN :
                 if event.button == 1 :
                     cursor_pos = pygame.mouse.get_pos() #In prototype
