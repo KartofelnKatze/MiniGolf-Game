@@ -8,3 +8,4 @@ class Level1(libs.Level):
 class Level2(libs.Level):
     def __init__(self):
         super().__init__()
+        self.barrier_pos = [(200,400),(300,500),(400,500)]
