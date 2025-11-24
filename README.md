@@ -8,3 +8,5 @@ If you are on windows, open your python terminal in your programming environneme
 pip install pygame
 pip install pandas
 ```
+##Status of the project 
+The project is in actual developpement, a realease isn't planned for now but you can check the code on my github repo 
