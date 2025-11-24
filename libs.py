@@ -41,14 +41,14 @@ class Ball :
         self.dx *= 0.98
         self.dy *= 0.98
 
-    def collide(self,level,info) :
+    def collide(self,level ,info) :
         '''Verify collision beetween elements of level and the ball'''
         distance_hole_ball = self.distance(level.hole_pos[0],level.hole_pos[1])
         if distance_hole_ball-25 <= 15 and self.image.get_width()>1:
             self.dx = 0
             self.dy = 0
             self.image = pygame.transform.scale(self.image,(self.image.get_width()*0.98,self.image.get_height()*0.98))
-            df = pandas.read_csv('info.csv')
+            df = pandas.DataFrame({"highscore" : None},index=[0])
             if info.score == -1 :
                 info.highscore = 1
                 df["highscore"].values[0] = 1
@@ -56,6 +56,7 @@ class Ball :
                 info.highscore = info.score
                 df["highscore"].values[0] = info.score 
             df.to_csv('info.csv')
+            #Problem of overwriting
             
         for coor in level.barrier_pos :
             if self.distance(coor[0]+25,coor[1]+25) <= 50:
@@ -85,6 +86,7 @@ class Level :
         self.ball_pos = ()
 
     def draw(self,surface):
+        '''Draw all elements of the actual level'''
         surface.blit(self.main_bg,(0,0))
         surface.blit(self.hole,self.hole_pos)
         for pos in self.barrier_pos :
@@ -115,7 +117,7 @@ class Info :
             label = pygame.image.load(fr'C:\Users\ponsg\MiniGolf-Game\Assets\level{i}_label.png')
             self.level_label.append(pygame.transform.scale(label,(150,75)))
 
-    def switch_levels(self,ball):
+    def switch_levels(self,ball : Ball):
         '''Method to switch beetween levels'''
         cursor_pos =  pygame.mouse.get_pos()
         if self.distance(cursor_pos,(925,90)) < 25  and self.level_index < len(self.level_list)-1:
@@ -128,7 +130,7 @@ class Info :
             self.chronometer.start()
         return self.level_list[self.level_index]
     
-    def draw(self, surface):
+    def draw(self, surface ):
         '''Draw all elements of the info bar'''
         self.chronometer.update()
         self.score_render = self.text_font.render(f"Score : {self.score}",True,(255,255,255))
@@ -179,6 +181,7 @@ class Start_Menu:
         self.bg_move = 0
     
     def draw(self,surface):
+        '''Draw all the elements og the menu '''
         surface.blit(self.play_img,(400,200))
         surface.blit(self.settings_img,(400,300))
         surface.blit(self.quit_img,(400,400))
