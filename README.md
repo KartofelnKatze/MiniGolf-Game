@@ -4,5 +4,7 @@ Just a minigolf game in python
 - Pygame
 - Pandas
 if you are on windows, open your python terminal in your programming environnement and type the following instruction :
+
 'pip install pygame'
+
 'pip install pandas'
